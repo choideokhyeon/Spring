@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.test</groupId>
 	<artifactId>app</artifactId>
@@ -84,7 +84,7 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
-			<scope>runtime</scope>
+			<!-- <scope>runtime</scope> -->
 		</dependency>
 
 		<!-- @Inject -->
@@ -113,11 +113,11 @@
 			<version>1.2</version>
 		</dependency>
 	
-		<!-- Test -->
+		<!-- Test를 위한 junit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		
@@ -128,6 +128,26 @@
  	  	  <artifactId>xercesImpl</artifactId>
  	 	  <version>2.12.2</version>
  	  	</dependency>
+ 	  	
+ 	  	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+ 	  	<!-- lombok : Getter Setter toString() 등 DTO 자동설정 -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.24</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<!-- Spring TEST -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework-version}</version> <!-- 현재 버전에 맞추기 -->
+		    <scope>test</scope>
+		</dependency>
+		
+ 	  	
  	  	
 	</dependencies>
 	

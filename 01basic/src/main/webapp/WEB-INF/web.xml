@@ -17,6 +17,7 @@
 
 	<!-- Processes application requests -->
 	<servlet>
+		<!-- Frontcontroller 대용으로 사용 -->
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>

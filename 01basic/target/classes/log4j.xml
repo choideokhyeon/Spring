@@ -15,6 +15,11 @@
 		<level value="info" />
 	</logger>
 	
+	<!-- Controller　추가 -->
+	<logger name="com.test.controller">
+		<level value="info" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
