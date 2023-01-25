@@ -6,7 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<link rel="stylesheet" type="text/css" href="resources/css/common.css">
+
 <body>
 <h1>YOIL3 PAGE</h1>
 </body>
+
 </html>

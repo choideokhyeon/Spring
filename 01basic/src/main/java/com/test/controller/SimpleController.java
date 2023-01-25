@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.test.dto.YoilDTO;
@@ -223,9 +224,7 @@ public class SimpleController {
 		
 		
 		//뷰 이동
-		model.addAttribute("year", DTO.getYear());
-		model.addAttribute("month", DTO.getMonth());
-		model.addAttribute("day", DTO.getDay());
+		model.addAttribute("yoildto", DTO);
 		model.addAttribute("yoil", yoil);
 		
 		return "yoil/Yoil6";	//return으로 경로 위치 받아옴(확장자 생략가능)
@@ -247,4 +246,10 @@ public class SimpleController {
 	{
 		return true;
 	}
+	
+	
+
+//================================================================================
+	
+
 }

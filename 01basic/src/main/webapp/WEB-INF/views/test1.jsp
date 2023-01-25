@@ -4,13 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TEST1</title>
 </head>
 <body>
-<h1>YOIL6 PAGE</h1>
-Year : ${yoildto.year}<br>
-Month : ${yoildto.month}<br>
-Day : ${yoildto.day}<br>
-Yoil : ${yoil}요일<br>
+<h1>TEST1 PAGE</h1>
 </body>
 </html>
