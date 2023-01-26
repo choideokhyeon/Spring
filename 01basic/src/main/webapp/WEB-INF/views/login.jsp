@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,8 @@
 		jstl 문법인 <c:url value="경로" /> 를 사용한다
 	 -->
 	 
-	<form name="loginfrm" action= <c:url value="/login" /> method="post">
+	<form:form modelAttribute="loginDTO" name="loginfrm" action='<c:url value="/login" />' method="post">
+		<div style="font-size:0.5rem; color:red; text-align:left; margin-bottom:0px;"><form:errors path="email" /></div>
 		<input type="text" name="email" placeholder="example@example.com" value="${cookie.email.value}" class="form-control" />
 		<input type="password" name="pwd"  placeholder="Insert Password" class="form-control" />
 		<div>
@@ -34,7 +36,7 @@
 		<a href=<c:url value="/member/join" />>회원가입</a>
 		<a href="javascript:void(0)">아이디분실</a>
 		<a href="${pageContext.request.contextPath}/auth/resetpwd.do">패스워드분실</a>
-	</form>
+	</form:form>
 </section>
 
 

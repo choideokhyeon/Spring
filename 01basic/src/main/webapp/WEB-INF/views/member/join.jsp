@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,9 @@
 <!-- JQ -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
+<!-- Springframework form -->
+
+
 <style>
 .container{width : 500px; margin:100px auto; text-align:center; position:relative;}
 .container *{margin-bottom:10px;}
@@ -24,11 +28,16 @@
 </head>
 <body>
 <section class="container">
-	<div class="msg">${param.msg}</div>
+	<%-- <div class="msg">${param.msg}</div> --%>
 	<h1>MEMBER JOIN</h1>
-	<form id="joinfrm" name="joinfrm" action="${pageContext.request.contextPath}/member/save" method="post" onsubmit="return false">
+	<form:form modelAttribute="memberDTO" id="joinfrm" name="joinfrm" action="${pageContext.request.contextPath}/member/save" method="post" onsubmit="return false">
+	
+		<div style="font-size:0.5rem; color:red; text-align:left; margin-bottom:0px;"><form:errors path="email" /></div>
 		<input type="text" name="email" placeholder="example@example.com" class="form-control" />
+		
+		<div style="font-size:0.5rem; color:red; text-align:left; margin-bottom:0px;"><form:errors path="pwd" /></div>
 		<input type="password" name="pwd"  placeholder="Insert Password" class="form-control" />
+		
 		<input type="text" name="birth"  placeholder="yyyymmdd" class="form-control" />
 		
 		<div class="row" style="margin-bottom:0px;" id="SMSAuth">
@@ -55,7 +64,7 @@
 		<button class="btn btn-secondary" onclick="isValid()">회원가입</button>
 		<input type="reset" value="초기화" class="btn btn-danger" />
 		<a href="${pageContext.request.contextPath}/auth/login.do" class="btn btn-warning">이전으로</a>
-	</form>
+	</form:form>
 </section>
 
 

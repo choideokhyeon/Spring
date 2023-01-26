@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.test.dto.BoardDTO;
+import com.test.dto.BoardDto;
 import com.test.dto.PersonDTO;
 
 import lombok.extern.log4j.Log4j;
@@ -22,7 +22,7 @@ public class DiTests {
 	PersonDTO personDTO;
 	
 	@Autowired
-	BoardDTO board;
+	BoardDto board;
 	
 	@Autowired
 	PersonDTO personDTO2;

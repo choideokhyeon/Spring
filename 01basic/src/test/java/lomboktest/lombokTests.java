@@ -2,7 +2,7 @@ package lomboktest;
 
 import org.junit.Test;
 
-import com.test.dto.BoardDTO;
+import com.test.dto.BoardDto;
 import com.test.dto.PersonDTO;
 
 public class lombokTests {
@@ -19,14 +19,14 @@ public class lombokTests {
 	@Test
 	public void lombokTests2()
 	{
-		BoardDTO DTO = new BoardDTO();
+		BoardDto DTO = new BoardDto();
 		System.out.println("BoardDTO : " + DTO);
 		
-		BoardDTO DTO2 = new BoardDTO("1","1","1","1","1","1","1","1","1");
+		BoardDto DTO2 = new BoardDto("1","1","1","1","1","1","1","1","1");
 		System.out.println("BoardDTO2 : " + DTO2);
 		
 		//@builder : 원하는 값과 순서에 상관없이 삽입가능
-		BoardDTO DTO3 = new BoardDTO().builder()
+		BoardDto DTO3 = new BoardDto().builder()
 				.no("1")
 				.title("제목")
 				.content("내용")
