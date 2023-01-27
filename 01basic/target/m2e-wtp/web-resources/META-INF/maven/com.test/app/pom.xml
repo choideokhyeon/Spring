@@ -169,6 +169,8 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+
+<!-- 15 AOP -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -183,6 +185,24 @@
 			<version>1.9.19</version>
 			<scope>runtime</scope>
 		</dependency>
+
+
+
+<!-- 17 Mybatis -->
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>2.0.7</version> <!-- 최신버전이 JUnit에서 에러발생시 2.0.7로 다운그레이드 -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.5.11</version>
+		</dependency>
+
 
 
 
