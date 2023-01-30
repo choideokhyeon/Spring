@@ -1,13 +1,10 @@
 package com.test.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 
-import javax.sql.DataSource;
-
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 import com.test.dto.TestDto;
@@ -19,36 +16,55 @@ import lombok.extern.log4j.Log4j;
 public class TestDaoImpl implements TestDao {
 	
 	@Autowired
-	DataSource ds;
+	private SqlSession session;
 	
-	Connection conn;
-	PreparedStatement pstmt;
-	ResultSet rs;
+	private static String namespace="com.test.mapper.TestMapper.";
 	
+	
+	//SELECT one
 	@Override
-	public int insert(TestDto dto) throws Exception
+	public TestDto select(int id)
 	{
-		int result = 0;
-		try
-		{
-			//conn = ds.getConnection(); 일반 db 연결
-			conn = DataSourceUtils.getConnection(ds);	//트랜젝션 db 연결(DataSourceUtils 사용)
-			log.info("CONN : " + conn);
-			pstmt = conn.prepareStatement("insert into tbl_test values(?,?)");
-			pstmt.setInt(1, dto.getId());
-			pstmt.setString(2, dto.getName());
-			result = pstmt.executeUpdate();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			throw e;	//트랜젝션 전용 예외 발생시키기
-		}
-		finally {
-			try{pstmt.close();} catch(Exception e) {}
-			DataSourceUtils.releaseConnection(conn, ds); //트랙젝션 db 연결해제
-		}
+		return session.selectOne(namespace + "selectXML", id);
+	}
+	
+	
+	//INSERT(SelectKey)
+	public TestDto insert(TestDto dto)
+	{
+		session.insert(namespace + "insertKeyAfterXML", dto);
+		return dto;
+	}
+	
+	
+	//UPDATE
+	@Override
+	public int update(TestDto dto)
+	{
+		return session.update(namespace + "updateXML", dto);
+	}
+	
+	
+	//DELETE
+	@Override
+	public int delete(int id)
+	{
+		return session.delete(namespace + "deleteXML", id);
+	}
+	
+	
+	//SELECT All
+	@Override
+	public List<Map<String,Object>> SelectAll()
+	{
+		return session.selectList(namespace + "selectXMLHashmap");
+	}
+	
 		
-		return result;
+	//SELECT All + map
+	@Override
+	public List<Map<String,Object>> SelectAll(Map<String,Object> map)
+	{
+		return session.selectList(namespace + "selectXMLHashmapif", map);
 	}
 }

@@ -11,4 +11,95 @@
 		Select count(*) from tbl_a 
 	</select>
 	
+	
+	
+	<!-- SELECT -->
+	<select id="selectXML" resultType="com.test.dto.TestDto" parameterType="int">
+		Select * from tbl_a where id=#{id} 
+	</select>
+	
+	
+	
+	<!-- SELECT -->
+	<select id="selectXML2" resultType="com.test.dto.TestDto" parameterType="int">
+		<!-- > 사용으로 인한 CDATA 사용 -->
+		<![CDATA[
+			Select * from tbl_a where id >= #{id}
+		]]>
+	</select>
+	
+	
+	
+	<!-- INSERT -->
+	<insert id="insertXML">
+		insert into tbl_a values(#{id},#{name})
+	</insert>
+	
+	<insert id="insertPARAM">
+		insert into tbl_a values(#{id},#{name})
+	</insert>
+	
+	
+	
+	<!-- Autoincrement Before -->
+	<insert id="insertKeyBeforeXML" parameterType="com.test.dto.TestDto">
+		<selectKey order="BEFORE" keyProperty="id" resultType="int">
+			select max(id) from tbl_a
+		</selectKey>
+		insert into tbl_a values(null,#{name})
+	</insert>
+	
+	
+	
+	<!-- Autoincrement After -->
+	<insert id="insertKeyAfterXML" parameterType="com.test.dto.TestDto">
+		<selectKey order="AFTER" keyProperty="id" resultType="int">
+			select max(id) from tbl_a
+		</selectKey>
+		insert into tbl_a values(null,#{name})
+	</insert>
+	
+	
+	
+	<!-- UPDATE & DELETE -->
+	<update id="updateXML" parameterType="com.test.dto.TestDto">
+		Update tbl_a SET name=#{name} where id=#{id}
+	</update>
+	
+	<delete id="deleteXML" parameterType="int">
+		Delete from tbl_a where id=#{id}
+	</delete>
+	
+	
+	
+	<!-- Insert HashMap -->
+	<insert id="insertXMLHashmap" parameterType="hashmap">
+		Insert into tbl_a values(#{id},#{name})
+	</insert>
+	
+	<insert id="insertXMLHashmap2" parameterType="hashmap">
+		Insert into tbl_a
+		values				<!-- list로 받아와서 key,value를 넣어줌 -->
+		<foreach item="item" collection="list" separator=",">
+			(#{item.id},#{item.name})
+		</foreach>
+	</insert>
+	
+	
+	
+	<!-- Select HashMap -->
+	<select id="selectXMLHashmap" resultType="hashmap">
+		select * from tbl_a
+	</select>
+	
+	
+	
+	<!-- Select HashMap if -->
+	<select id="selectXMLHashmapif" resultType="hashmap" parameterType="hashmap">
+		select * from tbl_a				<!-- 지정되어 있지 않을때는 일반적인 select문만 출력 -->
+		<if test='type.equals("name")'>	<!-- name이라는 키값이 지정되어 있을 때 -->
+			where name like concat('%',#{keyword},'%')
+		</if>
+	</select>
+	
 </mapper>
