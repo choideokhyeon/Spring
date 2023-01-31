@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.test.mapper.TestMapper">
+<!-- com.test.mapper의 TestMapper 인터페이스의 함수를 받아와서 사용 -->
 
 	<!-- SELECT -->
 	<select id="countXML" resultType="int">
@@ -94,11 +95,29 @@
 	
 	
 	
-	<!-- Select HashMap if -->
-	<select id="selectXMLHashmapif" resultType="hashmap" parameterType="hashmap">
+	<!-- Select HashMap If -->
+	<select id="selectXMLHashmapIf" resultType="hashmap" parameterType="hashmap">
 		select * from tbl_a				<!-- 지정되어 있지 않을때는 일반적인 select문만 출력 -->
 		<if test='type.equals("name")'>	<!-- name이라는 키값이 지정되어 있을 때 -->
 			where name like concat('%',#{keyword},'%')
+		</if>
+	</select>
+	
+	
+	
+	<!-- Select HashMap Choose -->
+	<select id="selectXMLHashmapChoose" resultType="hashmap" parameterType="hashmap">
+		select * from tbl_a
+		<if test="condition != null">
+			where
+			<choose>
+				<when test="type.equals('name')">	<!-- name키를 받았을때 -->
+					name like concat('%',#{keyword},'%')
+				</when>	
+				<when test="type.equals('addr')">	<!-- addr키를 받았을때 -->
+					addr like concat('%',#{keyword},'%')
+				</when>
+			</choose>
 		</if>
 	</select>
 	
