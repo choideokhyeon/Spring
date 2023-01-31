@@ -18,4 +18,6 @@ public interface TestService {
 	public List<Map<String,Object>> SelectAllTestObject();
 	
 	public List<Map<String,Object>> SelectAllTestObject(Map<String,Object> map);
+	
+	public List<Map<String,Object>> SelectAllChoose(Map<String,Object> map);
 }

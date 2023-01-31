@@ -18,4 +18,6 @@ public interface TestDao {
 	public List<Map<String,Object>> SelectAll();
 	
 	public List<Map<String,Object>> SelectAll(Map<String,Object> map);
+	
+	public List<Map<String,Object>> SelectAllChoose(Map<String,Object> map);
 }

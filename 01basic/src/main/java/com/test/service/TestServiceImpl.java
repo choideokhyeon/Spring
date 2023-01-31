@@ -60,4 +60,11 @@ public class TestServiceImpl implements TestService {
 	{
 		return dao.SelectAll(map);
 	}
+	
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public List<Map<String,Object>> SelectAllChoose(Map<String,Object> map)
+	{
+		return dao.SelectAllChoose(map);
+	}
 }

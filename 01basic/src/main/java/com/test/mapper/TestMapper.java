@@ -86,6 +86,11 @@ public interface TestMapper {
 	
 	
 	
-	//SelectAll + map(keyword)
-	List<Map<String,Object>> selectXMLHashmapif(Map<String,Object> map);
+	//SelectAll + map keyword(if)
+	List<Map<String,Object>> selectXMLHashmapIf(Map<String,Object> map);
+	
+	
+	
+	//SelectAll + map keyword(choose)
+	List<Map<String,Object>> selectXMLHashmapChoose(Map<String,Object> map);
 }

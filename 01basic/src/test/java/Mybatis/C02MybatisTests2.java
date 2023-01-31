@@ -64,11 +64,25 @@ public class C02MybatisTests2 {
 	public void func5()
 	{
 		Map<String,Object> m = new HashMap();
-		m.put("type", "name");	//type:name
+		m.put("type", "name");		//type:name
 		m.put("keyword", "test");	//keyword:test
-		List<Map<String,Object>> list = service.SelectAllTestObject(m);		
+		List<Map<String,Object>> list = service.SelectAllTestObject(m);
 		log.info("Total : " + list.size());
 		list.forEach(map -> {log.info(map.get("id") + "," + map.get("name"));});
+	}
+	
+	
+	//SELECTAll + keyword(choose)
+	@Test
+	public void func6()
+	{
+		Map<String,Object> m = new HashMap();
+		m.put("condition", "true");
+		m.put("type", "addr");
+		m.put("keyword", "광역");
+		List<Map<String,Object>> list = service.SelectAllChoose(m);
+		log.info("Total : " + list.size());
+		list.forEach(map -> {log.info(map.get("id") + "," + map.get("name") + "," + map.get("addr"));});
 	}
 }
   

@@ -65,6 +65,14 @@ public class TestDaoImpl implements TestDao {
 	@Override
 	public List<Map<String,Object>> SelectAll(Map<String,Object> map)
 	{
-		return session.selectList(namespace + "selectXMLHashmapif", map);
+		return session.selectList(namespace + "selectXMLHashmapIf", map);
+	}
+	
+	
+	//SELECT All + map(choose)
+	@Override
+	public List<Map<String,Object>> SelectAllChoose(Map<String,Object> map)
+	{
+		return session.selectList(namespace + "selectXMLHashmapChoose", map);
 	}
 }

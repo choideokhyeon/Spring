@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>	
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Post</title>
 <!-- BS5 -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -25,51 +25,67 @@
 body {
 	padding: 10px;
 }
+
 a {
 	text-decoration: none;
 	color: black;
 }
+
 ul {
 	list-style: none;
 	padding: 0px;
 }
+
 header {
 	magin-bottom: 10px;
 }
-header .top-header{height:40px;}
-header .top-header ul{
-display:flex;
-justify-content:right;align-items:center;
-height:40px;
-font-size:0.6rem;
+
+header .top-header {
+	height: 40px;
 }
-header .top-header ul li{
-	margin-left:10px;
+
+header .top-header ul {
+	display: flex;
+	justify-content: right;
+	align-items: center;
+	height: 40px;
+	font-size: 0.6rem;
 }
+
+header .top-header ul li {
+	margin-left: 10px;
+}
+
 header nav {
 	height: 50px;
 	background-color: #F2F2F2
 }
+
 header nav ul {
 	height: 50px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 }
+
 header nav ul li {
 	
 }
+
 section {
 	height: 600px;
 	width: 95vw;
 	margin-top: 10px;
 }
+
 .container {
 	position: relative;
 }
+
 .container * {
 	margin-bottom: 10px;
 }
+
 .container .msg {
 	position: absolute;
 	left: 0px;
@@ -80,7 +96,6 @@ section {
 	color: red;
 	padding-left: 15px;
 }
- 
 </style>
 
 
@@ -111,93 +126,46 @@ section {
 		<div>
 			<a href="${pageContext.request.contextPath}/main"> <i
 				class="bi bi-house-door"></i>
-			</a> > BOARD
+			</a> > BOARD > POST
 		</div>
-		
+
 		<h1>자유게시판</h1>
-		<p>Page No : ( <span style="color:red;">${pagedto.criteria.pageno} </span> / ${pagedto.totalpage} )</p>
-		<table class="table">
-			<thead>
+		<p></p>
+		<form action="${pageContext.request.contextPath}/board/post" method="post" enctype="multipart/form-data">
+			<table class="table w-50">
 				<tr>
-					<th>NO</th>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>날짜</th>
-					<th>조회수</th>
+					<td>Title</td>
+					<td><input type="text" class="form-control" name="title" /></td>
 				</tr>
-			</thead>
-			<tbody>
-			
-			<c:forEach var="dto" items="${list}" varStatus="status" >
-			 	<tr>
-					<td>${dto.no}</td>
-					<td><a href="${pageContext.request.contextPath}/board/read?bno=${dto.no}&pageno=${pagedto.criteria.pageno}">${dto.title}</a> </td>
-					<td>${dto.email }</td>
-					<td>${dto.regdate }</td>
-					<td>${dto.count }</td>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" class="form-control" name="email"  value="${authdto.email}" /></td>
+				</tr>				
+				<tr>
+					<td>Content</td>
+					<td><textarea id="" cols="30" rows="10" name="content" class="form-control" ></textarea></td>
+				</tr>
+				<tr>
+					<td>Files</td>
+					<td><input type="file" class="form-control" name="files"   multiple /></td>
 				</tr>	
-			</c:forEach>
-				
-			</tbody>
-			<tfoot>
-				
 				<tr>
-					<!-- 페이지네이션 -->
-					<td colspan="3">
-						<nav aria-label="Page navigation example" >
-						  <ul class="pagination"  style="height:30px;">
-						  
-						  <!-- PREV 버튼 -->
-						  <c:if test="${pagedto.prev}">
-							 	 <li class="page-item">
-							      <a class="page-link" href="${pageContext.request.contextPath}/board/list?pageno=${pagedto.nowBlock * pagedto.pagePerBlock - pagedto.pagePerBlock*2 + 1}" aria-label="Previous">
-							        <span aria-hidden="true">&laquo;</span>
-							      </a>
-							    </li> 
-						  </c:if>
-
-						    
-						    <!-- 페이지번호 -->
-						    <c:forEach begin="${pagedto.startPage}" end="${pagedto.endPage }" var="pageno" step="1">
-							    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/board/list?pageno=${pageno}">${pageno}</a></li>
-						    </c:forEach>
-						    
-						
-
-						    
-						    <!-- NEXT버튼 -->
-						    <c:if test="${pagedto.next}">
-							    <li class="page-item">
-							      <a class="page-link" href="${pageContext.request.contextPath}/board/list?pageno=${pagedto.nowBlock*pagedto.pagePerBlock+1}" aria-label="Next">
-							        <span aria-hidden="true">&raquo;</span>
-							      </a>
-							    </li>
-						     </c:if>
-						     
-						  </ul>
-						</nav>
-					</td>
-					<!-- 글쓰기/처음으로 -->
-					<td colspan="2" style="text-align:right;">
-						<a href="${pageContext.request.contextPath}/board/post" class="btn btn-danger">글쓰기</a>
-						<a href="${pageContext.request.contextPath}/board/list" class="btn btn-success">처음으로</a>
-					</td>
-					 
-				</tr>
-			</tfoot>	
-		</table>
+					<td colspan=2>
+						<input type="submit" value="전송" class="btn btn-primary" />
+						<input type="reset" value="초기화" class="btn btn-secondary" />					
+					</td>				 
+				</tr>												
+			</table>
+		</form>
 		
-		
-	
 	</section>
-
-
 
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
  <script>
 		Kakao.init('ca12c0d4f6ea096e99d25d2d2c9b7c77'); //발급받은 키 중 javascript키를 사용해준다.
 		console.log(Kakao.isInitialized()); // sdk초기화여부판단
+
 		//카카오로그아웃  
 		function kakaoLogout(path) {
 			if (Kakao.Auth.getAccessToken()) {
@@ -209,11 +177,14 @@ section {
 					},
 					fail : function(error) {
 						console.log(error)
+
 					},
 				})
 				Kakao.Auth.setAccessToken(undefined)
 			}
 		}
  </script>
+
+
 </body>
 </html>
