@@ -17,7 +17,6 @@
 
 	<!-- Processes application requests -->
 	<servlet>
-		<!-- Frontcontroller 대용으로 사용 -->
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -25,7 +24,17 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		
+		<!-- 21 파일 업다운로드 -->
+		<multipart-config>
+			<location>c:\\upload</location>
+			<max-filt-size>20971520</max-filt-size>				<!-- 1MB*20 -->
+			<max-request-size>41943040</max-request-size>		<!-- 40MB -->
+			<file-size-threshold>20971520</file-size-threshold>	<!-- 20MB -->
+		</multipart-config>
+	
 	</servlet>
+	
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>

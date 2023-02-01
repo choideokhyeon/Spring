@@ -96,4 +96,14 @@ public class RestTestController {
 		return dto;
 	}
 	//postman 써보기
+	
+	
+	
+	//ajax
+	@PostMapping("/PostReq")
+	public TestDto func7(@RequestBody TestDto dto)
+	{
+		System.out.println("DTO : " + dto);
+		return dto;
+	}
 }
