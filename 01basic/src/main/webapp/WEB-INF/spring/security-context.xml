@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+	<!-- 에러페이지 리다이렉트용 클래스 연결-->
+	<bean id="CustomAccessDenied" class="com.test.security.CustomAccessDeniedHandler"></bean>
+	<bean id="CustomLoginSuccessHandler" class="com.test.security.CustomLoginSuccessHandler"></bean>
+	
+	
+	<security:http>
+	<!-- 페이지별 권한주기 -->
+		<security:intercept-url pattern="/all" access="permitAll" />
+		<!-- 아래의 두 페이지는 접속시 로그인(권한) 요구 -->
+		<security:intercept-url pattern="/member" access="hasRole('ROLE_MEMBER')" />
+		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+		
+	<!-- 에러페이지 리다이렉트 -->	
+		<security:access-denied-handler ref="CustomAccessDenied" />
+		
+	<!-- 로그인 폼 전용 : 기본값 <security:form-login /> -->
+		<security:form-login
+			login-page="/customlogin"
+			authentication-success-handler-ref="CustomLoginSuccessHandler"		
+		/>
+		<!-- authentication-success-handler-ref : 로그인 성공시 접속자의 권한에 따라 리다이렉트 시킬 페이지 -->
+		
+		
+	</security:http>
+	
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+		
+			<!-- 테스트 전용 계정 -->
+			<security:user-service>				<!-- noop : 암호화 없이 사용 -->
+				<security:user name="member" password="{noop}1234" authorities="ROLE_MEMBER"/>
+				<security:user name="admin" password="{noop}1234" authorities="ROLE_MEMBER,ROLE_ADMIN"/><!-- 권한 여러개 부여 가능 -->
+			</security:user-service>
+			
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>
