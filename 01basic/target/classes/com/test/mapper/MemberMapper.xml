@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.test.mapper.MemberMapper">
+	
+	<resultMap type="com.test.dto.MemberDto2" id="MemberMap">
+		<id property="userid" column="userid"></id>
+		<result property="userid" column="userid" />
+		<result property="userpw" column="userpw" />
+		<result property="userName" column="username" />
+		<result property="regdate" column="regdate" />
+		<result property="updatedate" column="updatedate" />
+		<collection property="authList" resultMap="AuthMap" />	<!-- resultMap 사용해서 테이블2개 연결 -->
+	</resultMap>
+	<resultMap type="com.test.dto.AuthDto2" id="AuthMap">
+		<result property="userid" column="userid" />
+		<result property="auth" column="auth" />
+	</resultMap>
+	
+	<select id="read" resultMap="MemberMap">
+		Select
+			mem.userid,userpw,username,enabled,regdate,updatedate,auth
+		From tbl_member mem
+		Left Outer Join tbl_member_auth auth
+		On mem.userid=auth.userid
+		Where mem.userid=#{userid}
+	</select>	
+	
+</mapper>
