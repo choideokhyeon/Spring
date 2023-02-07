@@ -8,7 +8,10 @@
 	
 	<!-- 에러페이지 리다이렉트용 클래스 연결-->
 	<bean id="CustomAccessDenied" class="com.test.security.CustomAccessDeniedHandler"></bean>
+	
 	<bean id="CustomLoginSuccessHandler" class="com.test.security.CustomLoginSuccessHandler"></bean>
+	<bean id="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<bean id="CustomUserDetailsService" class="com.test.security.CustomUserDetailsService"></bean>
 	
 	
 	<security:http>
@@ -18,7 +21,7 @@
 		<security:intercept-url pattern="/member" access="hasRole('ROLE_MEMBER')" />
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 		
-	<!-- 에러페이지 리다이렉트 -->	
+	<!-- 에러페이지 리다이렉트 -->
 		<security:access-denied-handler ref="CustomAccessDenied" />
 		
 	<!-- 로그인 폼 전용 : 기본값 <security:form-login /> -->
@@ -28,18 +31,30 @@
 		/>
 		<!-- authentication-success-handler-ref : 로그인 성공시 접속자의 권한에 따라 리다이렉트 시킬 페이지 -->
 		
-		
+	<!-- 로그아웃 -->
+		<security:logout logout-url="/customlogout" invalidate-session="true" />
 	</security:http>
 	
 	
-	<security:authentication-manager>
-		<security:authentication-provider>
+	
+	 <security:authentication-manager>
+		<security:authentication-provider user-service-ref="CustomUserDetailsService">
+		<!-- 3 CustomUserDetailsService 추가 -->
 		
-			<!-- 테스트 전용 계정 -->
-			<security:user-service>				<!-- noop : 암호화 없이 사용 -->
+			<!-- 1 테스트 전용 계정
+			<security:user-service>				noop : 암호화 없이 사용
 				<security:user name="member" password="{noop}1234" authorities="ROLE_MEMBER"/>
-				<security:user name="admin" password="{noop}1234" authorities="ROLE_MEMBER,ROLE_ADMIN"/><!-- 권한 여러개 부여 가능 -->
-			</security:user-service>
+				<security:user name="admin" password="{noop}1234" authorities="ROLE_MEMBER,ROLE_ADMIN"/>권한 여러개 부여 가능
+			</security:user-service> -->
+			
+			
+			<!-- 2 jdbc 연동 -->
+<!-- 			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="select userid,userpw,enabled from tbl_member where userid=?"
+				authorities-by-username-query="select userid,auth from tbl_member_auth where userid=?"
+			/> -->
+			<security:password-encoder ref="BCryptPasswordEncoder" />
 			
 		</security:authentication-provider>
 	</security:authentication-manager>
