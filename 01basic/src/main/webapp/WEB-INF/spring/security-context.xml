@@ -9,6 +9,7 @@
 	<!-- 에러페이지 리다이렉트용 클래스 연결-->
 	<bean id="CustomAccessDenied" class="com.test.security.CustomAccessDeniedHandler"></bean>
 	
+	<!-- 로그인 관련 클래스 연결 -->
 	<bean id="CustomLoginSuccessHandler" class="com.test.security.CustomLoginSuccessHandler"></bean>
 	<bean id="BCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<bean id="CustomUserDetailsService" class="com.test.security.CustomUserDetailsService"></bean>
@@ -32,7 +33,11 @@
 		<!-- authentication-success-handler-ref : 로그인 성공시 접속자의 권한에 따라 리다이렉트 시킬 페이지 -->
 		
 	<!-- 로그아웃 -->
-		<security:logout logout-url="/customlogout" invalidate-session="true" />
+		<security:logout logout-url="/customlogout" invalidate-session="true" delete-cookies="remeber-me, JSESSION_ID" />
+																							<!-- 자동로그인 쿠키 제거 -->
+	<!-- 자동로그인 -->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" />
+		
 	</security:http>
 	
 	
